@@ -17,4 +17,6 @@ public interface StudentService {
     Collection<Student> FindByAge(int age);
 
     public Collection<Student> findByAgeBetween(int min, int max);
+
+    Long checkStudentExist(Long id);
 }

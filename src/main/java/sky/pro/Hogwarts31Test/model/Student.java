@@ -32,7 +32,7 @@ public class Student {
 
     }
 
-    public Student(String character, int i) {
+    public Student(String character, int id) {
 
     }
 

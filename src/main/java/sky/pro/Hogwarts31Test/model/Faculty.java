@@ -17,7 +17,6 @@ public class Faculty {
     private String name;
     private String color;
 
-    //@OneToMany(mappedBy = "faculty", fetch = FetchType.EAGER)
     @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Student> students;

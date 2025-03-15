@@ -21,8 +21,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Long add(Student student) {
 
-        if (studentRepository.existsById(student.getId()))
-            throw new RuntimeException(("Студент уже существует"));
+        if (studentRepository.existsById(student.getId())){
+            throw new RuntimeException(("Студент уже существует"));}
         return studentRepository.save(student).getId();
     }
 
@@ -67,13 +67,16 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
-
-    private void checkStudentExist(Long id) {
+    @Override
+    public Long checkStudentExist(Long id) {
         checkStudentExist(id);
         {
             if (!studentRepository.existsById(id)) {
                 throw new StudentNotFoundException(id);
+            } else {
+                return id;
             }
+
         }
 
     }
