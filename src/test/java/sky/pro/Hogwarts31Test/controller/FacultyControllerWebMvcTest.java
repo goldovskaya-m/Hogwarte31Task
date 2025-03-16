@@ -5,9 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import sky.pro.Hogwarts31Test.model.Faculty;
@@ -18,13 +18,15 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class FacultyControllerTestRestTemplate {
+@WebMvcTest(FacultyController.class)
+public class FacultyControllerWebMvcTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -85,8 +87,9 @@ public class FacultyControllerTestRestTemplate {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Faculty> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Faculty.class));
-        assertThat(actualStudents).containsExactly(faculty1, faculty2);
+        List<Faculty> actualFaculty = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Faculty.class));
+        assertThat(actualFaculty).containsExactly(faculty1, faculty2);
     }
-
 }
+
+

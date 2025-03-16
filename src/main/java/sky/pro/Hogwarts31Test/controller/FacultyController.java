@@ -4,11 +4,14 @@ import org.springframework.web.bind.annotation.*;
 import sky.pro.Hogwarts31Test.model.Faculty;
 import sky.pro.Hogwarts31Test.service.FacultyService;
 
+
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
+    @GetMapping
+    public String testApi() {return "WebApp is working";}
     private final FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {

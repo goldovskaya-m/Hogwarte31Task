@@ -1,4 +1,4 @@
-package sky.pro.Hogwarts31Test.service.impl;
+package sky.pro.Hogwarts31Test.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;

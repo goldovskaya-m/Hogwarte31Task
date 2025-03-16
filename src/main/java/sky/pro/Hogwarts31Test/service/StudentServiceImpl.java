@@ -1,4 +1,4 @@
-package sky.pro.Hogwarts31Test.service.impl;
+package sky.pro.Hogwarts31Test.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
