@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import sky.pro.Hogwarts31Test.model.Faculty;
 import sky.pro.Hogwarts31Test.model.Student;
 import sky.pro.Hogwarts31Test.service.StudentService;
 
@@ -35,18 +36,18 @@ public class StudentControllerWebMvcTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Student student1;
-    private Student student2;
+    //private Student student1;
+    //private Student student2;
 
 
     @BeforeEach
     void setUp() {
-        student1 = new Student();
+       Student student1 = new Student();
         student1.setId(1L);
         student1.setName("John Doe");
         student1.setAge(20);
 
-        student2 = new Student();
+        Student student2 = new Student();
         student2.setId(2L);
         student2.setName("Jane Smith");
         student2.setAge(22);
@@ -65,6 +66,7 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Добавление студента должно вернуть ID добавленного студента")
     void add_shouldAddStudentAndReturnId() throws Exception {
+        Student student1 = new Student();
         when(studentService.add(any(Student.class))).thenReturn(1L);
 
         MvcResult result = mockMvc.perform(post("/student/add")
@@ -79,6 +81,7 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Обновление студента должно вернуть обновленного студента")
     void update_shouldUpdateStudentAndReturnUpdatedStudent() throws Exception {
+        Student student1 = new Student();
         when(studentService.update(1L, student1)).thenReturn(student1);
 
         MvcResult result = mockMvc.perform(put("/student/1/update")
@@ -94,6 +97,7 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Удаление студента по ID должно вернуть удаленного студента")
     void deleteById_shouldDeleteStudentAndReturnDeletedStudent() throws Exception {
+        Student student1 = new Student();
         when(studentService.deleteById(1L)).thenReturn(student1);
 
         MvcResult result = mockMvc.perform(delete("/student/1/remove"))
@@ -107,6 +111,7 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Поиск студента по ID должен вернуть студента")
     void findById_shouldReturnStudentById() throws Exception {
+        Student student1 = new Student();
         when(studentService.findById(1L)).thenReturn(student1);
 
         MvcResult result = mockMvc.perform(get("/student/1/get"))
@@ -120,6 +125,8 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Получение всех студентов должно вернуть список студентов")
     void FindAll_shouldReturnAllStudents() throws Exception {
+        Student student1 = new Student();
+        Student student2 = new Student();
         List<Student> students = new ArrayList<>();
         students.add(student1);
         students.add(student2);
@@ -136,6 +143,7 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Поиск студентов по возрасту должен вернуть список студентов")
     void FindByAge_shouldReturnStudentsByAge() throws Exception {
+        Student student1 = new Student();
         List<Student> students = new ArrayList<>();
         students.add(student1);
         when(studentService.FindByAge(20)).thenReturn(students);
@@ -151,6 +159,8 @@ public class StudentControllerWebMvcTest {
     @Test
     @DisplayName("Поиск студентов по возрасту в диапазоне должен вернуть список студентов")
     void findByAgeBetween_shouldReturnStudentsByAgeBetween() throws Exception {
+        Student student1 = new Student();
+        Student student2 = new Student();
         List<Student> students = new ArrayList<>();
         students.add(student1);
         students.add(student2);

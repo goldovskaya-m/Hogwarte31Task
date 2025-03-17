@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import sky.pro.Hogwarts31Test.model.Faculty;
@@ -18,10 +17,8 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(FacultyController.class)
@@ -36,17 +33,17 @@ public class FacultyControllerWebMvcTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Faculty faculty1;
-    private Faculty faculty2;
+    //private Faculty faculty1;
+    //private Faculty faculty2;
 
     @BeforeEach
     void setUpp() {
-        faculty1 = new Faculty();
+        Faculty faculty1 = new Faculty();
         faculty1.setId(1L);
         faculty1.setName("Gryffindor");
         faculty1.setColor("Red");
 
-        faculty2 = new Faculty();
+        Faculty faculty2 = new Faculty();
         faculty2.setId(2L);
         faculty2.setName("Raven_claw");
         faculty2.setColor("Blue");
@@ -65,6 +62,7 @@ public class FacultyControllerWebMvcTest {
     @Test
     @DisplayName("Поиск факультета по ID должен вернуть факультет")
     void findById_shouldReturnFacultyById() throws Exception {
+        Faculty faculty1 = new Faculty();
         when(facultyService.findById(1L)).thenReturn(faculty1);
 
         MvcResult result = mockMvc.perform(get("/faculty/1/get"))
@@ -78,6 +76,8 @@ public class FacultyControllerWebMvcTest {
     @Test
     @DisplayName("Получение всех факультетов должно вернуть список факультетов")
     void FindAll_shouldReturnAllFaculty() throws Exception {
+        Faculty faculty1 = new Faculty();
+        Faculty faculty2 = new Faculty();
         Collection<Faculty> faculty = new ArrayList<>();
         faculty.add(faculty1);
         faculty.add(faculty2);
