@@ -111,4 +111,9 @@ public class StudentController {
                 .parallel()
                 .sum();
     }
+
+    @GetMapping("/print-synchronized")
+    public void printSynchronized() {
+        studentService.printSynchronized();
+    }
 }

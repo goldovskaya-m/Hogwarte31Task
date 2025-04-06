@@ -8,5 +8,6 @@ public class Hogwarts31TestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Hogwarts31TestApplication.class, args);
+		System.out.println("🐣");
 	}
 }
