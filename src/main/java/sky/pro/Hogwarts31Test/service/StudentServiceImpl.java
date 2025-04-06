@@ -1,11 +1,13 @@
 package sky.pro.Hogwarts31Test.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sky.pro.Hogwarts31Test.model.Student;
-import sky.pro.Hogwarts31Test.model.exception.StudentNotFoundException;
+import sky.pro.Hogwarts31Test.exception.StudentNotFoundException;
 import sky.pro.Hogwarts31Test.repository.StudentRepository;
-import sky.pro.Hogwarts31Test.service.StudentService;
 
 import java.util.Collection;
 
@@ -79,5 +81,22 @@ public class StudentServiceImpl implements StudentService {
 
         }
 
+    }
+
+    @Override
+    public long countAllStudents() {
+        return studentRepository.countAllStudents();
+    }
+
+    @Override
+    public Double getAverageAgeStudent() {
+        return studentRepository.getAverageAgeStudent();
+    }
+
+    @Override
+    @Transactional
+    public Page<Student> fiveLastStudents() {
+        Pageable pageable = PageRequest.of(0, 5);
+        return studentRepository.findLastFiveStudents(pageable);
     }
 }

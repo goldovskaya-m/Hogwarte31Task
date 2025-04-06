@@ -1,5 +1,8 @@
 package sky.pro.Hogwarts31Test.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +60,20 @@ public class StudentController {
                                                 @RequestParam("max") int max) {
         return studentService.findByAgeBetween(min, max);
 
+    }
+    @GetMapping("/count")
+    public ResponseEntity<Long> countStudents() {
+        return ResponseEntity.ok(studentService.countAllStudents());
+    }
+
+    @GetMapping("/average-age")
+    public ResponseEntity<Double> averageAge() {
+        return ResponseEntity.ok(studentService.getAverageAgeStudent());
+    }
+
+    @GetMapping("/last-five")
+    @Operation(summary = "Получение последних пяти студентов по идентификатор")
+    public ResponseEntity<Page<Student>> fiveLastStudents() {
+        return ResponseEntity.ok(studentService.fiveLastStudents());
     }
 }

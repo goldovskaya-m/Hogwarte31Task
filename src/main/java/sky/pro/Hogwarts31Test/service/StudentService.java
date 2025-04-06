@@ -1,5 +1,6 @@
 package sky.pro.Hogwarts31Test.service;
 
+import org.springframework.data.domain.Page;
 import sky.pro.Hogwarts31Test.model.Student;
 
 import java.util.Collection;
@@ -19,4 +20,10 @@ public interface StudentService {
     public Collection<Student> findByAgeBetween(int min, int max);
 
     Long checkStudentExist(Long id);
+
+    long countAllStudents();
+
+    Double getAverageAgeStudent();
+
+    Page<Student> fiveLastStudents();
 }

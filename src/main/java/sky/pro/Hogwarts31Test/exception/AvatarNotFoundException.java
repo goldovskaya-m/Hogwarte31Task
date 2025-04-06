@@ -1,4 +1,4 @@
-package sky.pro.Hogwarts31Test.model.exception;
+package sky.pro.Hogwarts31Test.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

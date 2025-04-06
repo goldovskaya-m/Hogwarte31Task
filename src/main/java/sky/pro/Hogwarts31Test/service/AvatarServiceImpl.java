@@ -1,6 +1,8 @@
 package sky.pro.Hogwarts31Test.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,11 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 import sky.pro.Hogwarts31Test.model.Avatar;
 import sky.pro.Hogwarts31Test.model.Student;
 import sky.pro.Hogwarts31Test.model.dto.AvatarView;
-import sky.pro.Hogwarts31Test.model.exception.AvatarNotFoundException;
-import sky.pro.Hogwarts31Test.model.exception.StudentNotFoundException;
+import sky.pro.Hogwarts31Test.exception.AvatarNotFoundException;
+import sky.pro.Hogwarts31Test.exception.StudentNotFoundException;
 import sky.pro.Hogwarts31Test.repository.AvatarRepository;
 import sky.pro.Hogwarts31Test.repository.StudentRepository;
-import sky.pro.Hogwarts31Test.service.AvatarService;
 
 
 import java.io.*;
@@ -125,6 +126,11 @@ public class AvatarServiceImpl implements AvatarService {
         byte[] bytes = Files.readAllBytes(Path.of(avatar.getFilePath()));
         return new AvatarView(MediaType.parseMediaType(avatar.getMediaType()), bytes);
 
+    }
+
+    @Override
+    public Page<Avatar> getAllAvatar(Pageable pageable) {
+        return avatarRepository.findAll(pageable);
     }
 }
 
