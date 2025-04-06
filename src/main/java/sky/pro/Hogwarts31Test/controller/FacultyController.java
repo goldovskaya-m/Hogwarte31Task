@@ -1,17 +1,22 @@
 package sky.pro.Hogwarts31Test.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 import sky.pro.Hogwarts31Test.model.Faculty;
 import sky.pro.Hogwarts31Test.service.FacultyService;
 
 
 import java.util.Collection;
+import java.util.Comparator;
 
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
     @GetMapping
-    public String testApi() {return "WebApp is working";}
+    public String testApi() {
+        return "WebApp is working";
+    }
+
     private final FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {
@@ -63,5 +68,15 @@ public class FacultyController {
                                                                    required = false) String name) {
         return facultyService.findByColorOrName(color, name);
 
+    }
+
+    @GetMapping("/longestName")
+    @Operation(summary = "возвращает самое длинное название факультета")
+    public String getLongestFacultyName() {
+        return facultyService.findAll()
+                .stream()
+                .max(Comparator.comparingInt(faculty -> faculty.getName().length()))
+                .map(Faculty::getName)
+                .orElse("");
     }
 }
