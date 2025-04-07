@@ -138,7 +138,8 @@ public class StudentControllerTestRestTemplate {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Student> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
+        List<Student> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(),
+                objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
         assertThat(actualStudents).containsExactly(student1, student2);
     }
 
@@ -154,7 +155,8 @@ public class StudentControllerTestRestTemplate {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Student> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
+        List<Student> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(),
+                objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
         assertThat(actualStudents).containsExactly(student1);
     }
 
@@ -172,7 +174,8 @@ public class StudentControllerTestRestTemplate {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Student> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
+        List<Student> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(),
+                objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
         assertThat(actualStudents).containsExactly(student1, student2);
     }
 }

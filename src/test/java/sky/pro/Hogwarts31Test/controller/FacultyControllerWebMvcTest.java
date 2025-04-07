@@ -87,7 +87,8 @@ public class FacultyControllerWebMvcTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Faculty> actualFaculty = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Faculty.class));
+        List<Faculty> actualFaculty = objectMapper.readValue(result.getResponse().getContentAsString(),
+                objectMapper.getTypeFactory().constructCollectionType(List.class, Faculty.class));
         assertThat(actualFaculty).containsExactly(faculty1, faculty2);
     }
 }

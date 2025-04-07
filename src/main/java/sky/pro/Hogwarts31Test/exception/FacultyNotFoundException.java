@@ -1,14 +1,14 @@
-package sky.pro.Hogwarts31Test.model.exception;
+package sky.pro.Hogwarts31Test.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class StudentNotFoundException extends RuntimeException{
+public class FacultyNotFoundException extends RuntimeException{
     private final long id;
 
-    public StudentNotFoundException(long id) {
-        super("Student not found by id: [%s]".formatted(id));
+    public FacultyNotFoundException(long id) {
+        super("Faculty not found by id: [%s]".formatted(id));
         this.id = id;
     }
 
@@ -16,4 +16,3 @@ public class StudentNotFoundException extends RuntimeException{
         return id;
     }
 }
-

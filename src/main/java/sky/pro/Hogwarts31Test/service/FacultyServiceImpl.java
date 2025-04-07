@@ -4,9 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sky.pro.Hogwarts31Test.model.Faculty;
 import sky.pro.Hogwarts31Test.model.Student;
-import sky.pro.Hogwarts31Test.model.exception.FacultyNotFoundException;
+import sky.pro.Hogwarts31Test.exception.FacultyNotFoundException;
 import sky.pro.Hogwarts31Test.repository.FacultyRepository;
-import sky.pro.Hogwarts31Test.service.FacultyService;
 
 import java.util.Collection;
 import java.util.List;

@@ -85,7 +85,8 @@ public class FacultyControllerTestRestTemplate {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Faculty> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(), objectMapper.getTypeFactory().constructCollectionType(List.class, Faculty.class));
+        List<Faculty> actualStudents = objectMapper.readValue(result.getResponse().getContentAsString(),
+                objectMapper.getTypeFactory().constructCollectionType(List.class, Faculty.class));
         assertThat(actualStudents).containsExactly(faculty1, faculty2);
     }
 

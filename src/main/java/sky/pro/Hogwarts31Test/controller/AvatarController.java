@@ -1,5 +1,8 @@
 package sky.pro.Hogwarts31Test.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,23 +37,30 @@ public class AvatarController {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.parseMediaType(avatar.getMediaType()))
                 .body(avatar.getData());
-
-        //return avatarService.getAvatarFromDb(studentId);
     }
 
     @GetMapping("/get/from-local")
     public ResponseEntity<byte[]> getAvatarFromLocal(@RequestParam("studentId") long studentId) throws IOException {
         AvatarView view = avatarService.getAvatarFromLocal(studentId);
-        //byte[] bytes = Files.readAllBytes(Path.of(avatar.getFilePath()));
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(view.getMediaType())
                 .body(view.getContent());
+    }
 
-        // .contentType(MediaType.parseMediaType(avatar.getMediaType()))
-        // .body(bytes);
+    /**
+     * Получение списка аватаров с пагинацией
+     *
+     * @param pageNumber Номер страницы
+     * @param pageSize   Размер страницы
+     * @return ResponseEntity с Page&lt;Avatar&gt;- содержит список аватарок и информацию о пагинации.
+     * Возвращает 200 OK с данными или 500 в случае ошибки.
+     */
 
-
-        //public byte[] getAvatarFromLocal(@RequestParam("studentId") long studentId) throws IOException {
-        //    return avatarService.getAvatarFromLocal(studentId);
+    @GetMapping("/pageable")
+    public ResponseEntity<Page<Avatar>> getAllAvatar(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return ResponseEntity.ok(avatarService.getAllAvatar(pageable));
     }
 }

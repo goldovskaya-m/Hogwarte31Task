@@ -3,11 +3,11 @@ package sky.pro.Hogwarts31Test.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sky.pro.Hogwarts31Test.model.Student;
-import sky.pro.Hogwarts31Test.model.exception.StudentNotFoundException;
+import sky.pro.Hogwarts31Test.exception.StudentNotFoundException;
 import sky.pro.Hogwarts31Test.repository.StudentRepository;
-import sky.pro.Hogwarts31Test.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @Transactional
 @Service
@@ -36,10 +36,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student deleteById(Long id) {
         checkStudentExist(id);
-        // return repository.remove(id);
         studentRepository.deleteById(id);
         return null;
-
     }
 
     @Override
@@ -51,13 +49,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Collection<Student> FindAll() {
         return (studentRepository.findAll());
-
     }
 
     @Override
     public Collection<Student> FindByAge(int age) {
-
-
         return studentRepository.findAll().stream()
                 .filter(student -> student.getAge() == age).toList();
     }
@@ -76,8 +71,21 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 return id;
             }
-
         }
+    }
 
+    @Override
+    public long countAllStudents() {
+        return studentRepository.countAllStudents();
+    }
+
+    @Override
+    public Double getAverageAgeStudent() {
+        return studentRepository.getAverageAgeStudent();
+    }
+
+    @Override
+    public List<Student> findFiveLastStudents() {
+        return studentRepository.findLastFiveStudents();
     }
 }

@@ -1,6 +1,8 @@
 package sky.pro.Hogwarts31Test.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,11 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 import sky.pro.Hogwarts31Test.model.Avatar;
 import sky.pro.Hogwarts31Test.model.Student;
 import sky.pro.Hogwarts31Test.model.dto.AvatarView;
-import sky.pro.Hogwarts31Test.model.exception.AvatarNotFoundException;
-import sky.pro.Hogwarts31Test.model.exception.StudentNotFoundException;
+import sky.pro.Hogwarts31Test.exception.AvatarNotFoundException;
+import sky.pro.Hogwarts31Test.exception.StudentNotFoundException;
 import sky.pro.Hogwarts31Test.repository.AvatarRepository;
 import sky.pro.Hogwarts31Test.repository.StudentRepository;
-import sky.pro.Hogwarts31Test.service.AvatarService;
 
 
 import java.io.*;
@@ -46,8 +47,6 @@ public class AvatarServiceImpl implements AvatarService {
                 orElseThrow(() -> new StudentNotFoundException(studentId));
         Path path = saveAvatarLocal(file);
 
-        // System.out.println(path.toString());
-
         Avatar avatar = new Avatar(
                 path.toString(),
                 file.getSize(),
@@ -56,20 +55,7 @@ public class AvatarServiceImpl implements AvatarService {
                 student
 
         );
-        //Optional<Avatar> savedAvatar = avatarRepository.findByStudentId(studentId);
-        //ifPresent((x) -> {
-        //   Files.delete((Path.of(x.getFilePath())));
-        //   avatar.setId(x.getId());
-        // });
-
-
-        // Avatar savedAvatar = avatarRepository.findByStudentId(studentId);
-        //if (savedAvatar != null) {
         avatarRepository.findByStudentId(studentId)
-
-                //Files.delete((Path.of(savedAvatar.getFilePath())));
-                //avatar.setId(savedAvatar.getId());
-
                 .ifPresent((x) -> {
                     try {
                         Files.delete(Path.of(x.getFilePath()));
@@ -81,7 +67,6 @@ public class AvatarServiceImpl implements AvatarService {
 
         avatarRepository.save(avatar);
         return avatar.getId();
-        //return avatarRepository.save(avatar).getId(); то же самое по другому
     }
 
     private Path saveAvatarLocal(MultipartFile file) throws IOException {
@@ -100,7 +85,6 @@ public class AvatarServiceImpl implements AvatarService {
 
     private String getExstension(String path) {
         return path.substring(path.lastIndexOf("."));
-        // ищем последнюю точку (расширение ggggg.jpg) и обрезаем всё, что после неё
     }
 
     private void createDirectoryIfNotExist() throws IOException {
@@ -125,6 +109,11 @@ public class AvatarServiceImpl implements AvatarService {
         byte[] bytes = Files.readAllBytes(Path.of(avatar.getFilePath()));
         return new AvatarView(MediaType.parseMediaType(avatar.getMediaType()), bytes);
 
+    }
+
+    @Override
+    public Page<Avatar> getAllAvatar(Pageable pageable) {
+        return avatarRepository.findAll(pageable);
     }
 }
 
