@@ -47,8 +47,6 @@ public class AvatarServiceImpl implements AvatarService {
                 orElseThrow(() -> new StudentNotFoundException(studentId));
         Path path = saveAvatarLocal(file);
 
-        // System.out.println(path.toString());
-
         Avatar avatar = new Avatar(
                 path.toString(),
                 file.getSize(),
@@ -57,20 +55,7 @@ public class AvatarServiceImpl implements AvatarService {
                 student
 
         );
-        //Optional<Avatar> savedAvatar = avatarRepository.findByStudentId(studentId);
-        //ifPresent((x) -> {
-        //   Files.delete((Path.of(x.getFilePath())));
-        //   avatar.setId(x.getId());
-        // });
-
-
-        // Avatar savedAvatar = avatarRepository.findByStudentId(studentId);
-        //if (savedAvatar != null) {
         avatarRepository.findByStudentId(studentId)
-
-                //Files.delete((Path.of(savedAvatar.getFilePath())));
-                //avatar.setId(savedAvatar.getId());
-
                 .ifPresent((x) -> {
                     try {
                         Files.delete(Path.of(x.getFilePath()));
@@ -82,7 +67,6 @@ public class AvatarServiceImpl implements AvatarService {
 
         avatarRepository.save(avatar);
         return avatar.getId();
-        //return avatarRepository.save(avatar).getId(); то же самое по другому
     }
 
     private Path saveAvatarLocal(MultipartFile file) throws IOException {
@@ -101,7 +85,6 @@ public class AvatarServiceImpl implements AvatarService {
 
     private String getExstension(String path) {
         return path.substring(path.lastIndexOf("."));
-        // ищем последнюю точку (расширение ggggg.jpg) и обрезаем всё, что после неё
     }
 
     private void createDirectoryIfNotExist() throws IOException {

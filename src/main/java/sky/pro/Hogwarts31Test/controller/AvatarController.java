@@ -37,24 +37,14 @@ public class AvatarController {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.parseMediaType(avatar.getMediaType()))
                 .body(avatar.getData());
-
-        //return avatarService.getAvatarFromDb(studentId);
     }
 
     @GetMapping("/get/from-local")
     public ResponseEntity<byte[]> getAvatarFromLocal(@RequestParam("studentId") long studentId) throws IOException {
         AvatarView view = avatarService.getAvatarFromLocal(studentId);
-        //byte[] bytes = Files.readAllBytes(Path.of(avatar.getFilePath()));
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(view.getMediaType())
                 .body(view.getContent());
-
-        // .contentType(MediaType.parseMediaType(avatar.getMediaType()))
-        // .body(bytes);
-
-
-        //public byte[] getAvatarFromLocal(@RequestParam("studentId") long studentId) throws IOException {
-        //    return avatarService.getAvatarFromLocal(studentId);
     }
 
     /**
